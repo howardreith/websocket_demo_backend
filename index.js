@@ -6,11 +6,11 @@ const authRoutes = require('./routes/auth');
 const messageRoutes = require('./routes/message');
 const messageRepo = require('./repository/message');
 
+const frontEndUrl = process.env.FRONT_END_URL;
 const port = process.env.PORT || 8080;
 const app = express();
-const httpServer = require('http').createServer(app);
+const httpServer = frontEndUrl.includes('localhost') ? require('http').createServer(app) : require('https').createServer(app);
 
-const frontEndUrl = process.env.FRONT_END_URL;
 const corsOptions = {
   origin: frontEndUrl,
   optionsSuccessStatus: 200
@@ -35,7 +35,7 @@ console.log('====> frontEndUrl', frontEndUrl)
 
 io.on('connection', function (socket) {
   socket.on('message', function (data) {
-    const { message, username } = data;
+    const {message, username} = data;
     const messageInfo = {
       messageSender: username,
       message
