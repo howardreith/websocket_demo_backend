@@ -30,6 +30,9 @@ const io = require('socket.io')(httpServer, {
 authRoutes.signin(app);
 messageRoutes.getLast50Messages(app);
 
+console.log('====> port', port)
+console.log('====> frontEndUrl', frontEndUrl)
+
 io.on('connection', function (socket) {
   socket.on('message', function (data) {
     const { message, username } = data;
