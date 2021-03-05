@@ -9,7 +9,8 @@ const messageRepo = require('./repository/message');
 const frontEndUrl = process.env.FRONT_END_URL;
 const port = process.env.PORT || 8080;
 const app = express();
-const httpServer = frontEndUrl.includes('localhost') ? require('http').createServer(app) : require('https').createServer(app);
+// const httpServer = frontEndUrl.includes('localhost') ? require('http').createServer(app) : require('https').createServer(app);
+const httpServer = require('http').createServer(app);
 
 const corsOptions = {
   origin: frontEndUrl,
