@@ -2,23 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const http = require('http');
+const authRoutes = require('./routes/auth');
+const messageRoutes = require('./routes/message');
+const startSockets = require('./services/sockets');
 
 const frontEndUrl = process.env.FRONT_END_URL;
 const port = process.env.PORT || 8080;
 const app = express();
-
-const httpServer = require('http').createServer(app);
-const io = require('socket.io')(httpServer, {
-  origin: frontEndUrl,
-  methods: ['GET', 'POST'],
-  cors: {
-    origin: frontEndUrl,
-  },
-});
-
-const authRoutes = require('./routes/auth');
-const messageRoutes = require('./routes/message');
-const messageRepo = require('./services/message');
+const httpServer = http.createServer(app);
 
 const corsOptions = {
   origin: frontEndUrl,
@@ -30,18 +22,7 @@ app.use(bodyParser.json());
 
 authRoutes.signin(app);
 messageRoutes.getLast50Messages(app);
-
-io.on('connection', (socket) => {
-  socket.on('message', async (data) => {
-    const { message, username } = data;
-    const messageInfo = {
-      messageSender: username,
-      message,
-    };
-    await messageRepo.addMessageToDb(messageInfo);
-    io.sockets.emit('receiveMessage', data);
-  });
-});
+startSockets(httpServer);
 
 // Start the Server
 httpServer.listen(port, () => {
