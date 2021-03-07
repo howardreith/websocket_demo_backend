@@ -1,4 +1,4 @@
-const messageRepo = require('../repository/message');
+const messageRepo = require('../services/message');
 
 module.exports = {
   getLast50Messages: function (app) {

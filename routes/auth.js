@@ -1,13 +1,22 @@
-const authRepo = require('../repository/auth');
+const authRepo = require('../services/auth');
 
 module.exports = {
   signin: function (app) {
-    app.post('/signin', (req, res) => {
+    app.post('/signin', async (req, res) => {
       const username = req.body.username;
-      authRepo.signInUser(username);
-      res.send({
-        'status': 'OK'
-      });
+      try {
+        const result = await authRepo.signInUser(username);
+        if (result === 'OK') {
+          res.send({
+            'status': 'OK'
+          });
+        }
+      } catch (e) {
+        res.send({
+          'status': 'ERROR',
+          'error': e
+        })
+      }
     });
   }
 };

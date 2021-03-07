@@ -2,7 +2,9 @@
   "env": {
     "node": true,
     "browser": false,
-    "es6": true
+    "es6": true,
+    "jest/globals": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": 8
@@ -13,6 +15,5 @@
   "rules": {
     "eqeqeq": 1
   },
-  "plugins": [
-  ]
+  "plugins": ["jest"]
 }

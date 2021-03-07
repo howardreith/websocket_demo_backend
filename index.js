@@ -4,12 +4,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const messageRoutes = require('./routes/message');
-const messageRepo = require('./repository/message');
+const messageRepo = require('./services/message');
 
 const frontEndUrl = process.env.FRONT_END_URL;
 const port = process.env.PORT || 8080;
 const app = express();
-// const httpServer = frontEndUrl.includes('localhost') ? require('http').createServer(app) : require('https').createServer(app);
 const httpServer = require('http').createServer(app);
 
 const corsOptions = {
@@ -35,13 +34,13 @@ console.log('====> port', port)
 console.log('====> frontEndUrl', frontEndUrl)
 
 io.on('connection', function (socket) {
-  socket.on('message', function (data) {
+  socket.on('message', async function (data) {
     const {message, username} = data;
     const messageInfo = {
       messageSender: username,
       message
     };
-    messageRepo.addMessageToDb(messageInfo);
+    await messageRepo.addMessageToDb(messageInfo);
     io.sockets.emit('receiveMessage', data);
   });
 });
