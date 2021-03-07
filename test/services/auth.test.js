@@ -1,4 +1,4 @@
-const {getAsync, setAsync, deleteAsync} = require("../../repository/asyncRepository");
+const { getAsync, setAsync, deleteAsync } = require('../../repository/asyncRepository');
 
 const { signInUser } = require('../../services/auth');
 
@@ -17,6 +17,6 @@ describe('auth', () => {
       await expect(signInUser('bananapants'))
         .rejects.toThrowError('Username bananapants already signed in');
       await deleteAsync('bananapants');
-    })
-  })
+    });
+  });
 });

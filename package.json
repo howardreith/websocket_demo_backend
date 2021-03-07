@@ -14,10 +14,28 @@
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "eslint": "^4.17.0",
+    "eslint": "^7.21.0",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-node": "^11.1.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.5",
+    "eslint-plugin-node": "^11.1.0",
     "jest": "^26.6.3"
-  }
+  },
+  "description": "1. Install dependencies on the front and back ends with `yarn install`.\r 2. If you have not already installed redis, [do so](https://redis.io/download).\r 3. Start redis server with `redis-server`.\r 4. Start the back end with `yarn start`.\r 5. Start the front end with `yarn start`.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howardreith/websocket_demo_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/howardreith/websocket_demo_backend/issues"
+  },
+  "homepage": "https://github.com/howardreith/websocket_demo_backend#readme"
 }
