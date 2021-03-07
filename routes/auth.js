@@ -3,9 +3,9 @@ const authRepo = require('../services/auth');
 module.exports = {
   signin(app) {
     app.post('/signin', async (req, res) => {
-      const { username } = req.body;
+      const { username, socketid } = req.body;
       try {
-        await authRepo.signInUser(username);
+        await authRepo.signInUser(username, socketid);
         res.send({
           status: 'OK',
         });

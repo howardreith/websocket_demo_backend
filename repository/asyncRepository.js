@@ -21,6 +21,7 @@ const lpush = promisify(client.lpush).bind(client);
 const lpop = promisify(client.lpop).bind(client);
 const hmgetAsync = promisify(client.hmget).bind(client);
 const hmsetAsync = promisify(client.hmset).bind(client);
+const hmdelAsync = promisify(client.hdel).bind(client);
 
 async function setAsync(key, value) {
   return set(key, value);
@@ -58,6 +59,10 @@ async function setHashmapAsync(key, hash) {
   return hmsetAsync(key, hash);
 }
 
+async function deleteHashmapValueAsync(key, hashmapKey) {
+  return hmdelAsync(key, hashmapKey);
+}
+
 module.exports = {
   getAsync,
   setAsync,
@@ -68,4 +73,5 @@ module.exports = {
   getFullListAsync,
   setHashmapAsync,
   getHashmapValueAsync,
+  deleteHashmapValueAsync,
 };
